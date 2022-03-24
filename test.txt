@@ -1,3 +1,2 @@
-<<<<<<< HEAD
 djbravo!
-i have made changes locally
+i have made changes remotely.
