@@ -1,61 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>&lt;model-viewer&gt; example</title>
+<html>
+<head>
+    <meta name="viewport" contents="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Weather App - AR</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-    <link rel="stylesheet" href="demo-styles.css">
-    
-    <!-- The following libraries and polyfills are recommended to maximize browser support -->
-    <!-- NOTE: you must adjust the paths as appropriate for your project -->
-    
-    <!-- 💁 OPTIONAL: The :focus-visible polyfill removes the focus ring for some input types -->
-    <script src="https://unpkg.com/focus-visible@5.0.2/dist/focus-visible.js" defer></script>
-
-  </head> 
 <body>
-  <div id="card">
-    <!-- All you need to put beautiful, interactive 3D content on your site: |||||  src="https://cdn.glitch.com/36cb8393-65c6-408d-a538-055ada20431b/Astronaut.glb?1542147958948" -->
-    <model-viewer 
-                  src="https://cdn.glitch.global/30ecf31c-8368-4d9d-a992-4edc2e215e8a/chair.glb?v=1682149012569"
-                  ios-src="https://cdn.glitch.com/36cb8393-65c6-408d-a538-055ada20431b/Astronaut.usdz?v=1569545377878"
-                  poster="https://cdn.glitch.global/30ecf31c-8368-4d9d-a992-4edc2e215e8a/chair.png?v=1682148984210"
-                  alt="A 3D model of an astronaut"
-                  shadow-intensity="1"
-                  camera-controls
-                  auto-rotate ar>
-    </model-viewer>
-    <section class="attribution">
-      <!-- <span>
-        <h1>Astronaut</h1>
-        <span>By <a href="https://poly.google.com/view/dLHpzNdygsg" target="_blank">Poly</a></span>
-      </span> -->
-      <!-- <a class="cc" href="https://creativecommons.org/licenses/by/2.0/" target="_blank">
-        <img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg">
-        <img src="https://mirrors.creativecommons.org/presskit/icons/by.svg">
-      </a> -->
-    </section>
-    
-  </div>
-  
-  
-  <!-- <footer>
-    <span>This page is a basic demo of the <a href="https://github.com/GoogleWebComponents/model-viewer" target="_blank">&lt;model-viewer&gt;</a> web component.</span>
-    <span>It makes displaying 3D and AR content on the web easy ✌️</span>
-    <a href="https://glitch.com/edit/#!/remix/model-viewer">
-      <img src="https://cdn.glitch.com/2bdfb3f8-05ef-4035-a06e-2043962a3a13%2Fremix%402x.png?1513093958726" alt="remix button" aria-label="remix" height="33">
-    </a>
-  </footer> -->
-  
-  
-  <!-- 💁 Include both scripts below to support all browsers! -->
+    <div class="card">
+        <div class="search">
+            <input type="text" placeholder="enter city name" spellcheck="false">
+            <button><img src="images/search.png"></button>
+        </div>
+        <div class="error">
+            <p>Invalid city name</p>
+        </div>
 
-  <!-- Loads <model-viewer> for modern browsers: -->
-  <script type="module"
+        <div class="weather">
+            <img src="images/rain.png" class="weather-icon">
+            <h1 class="temp">22*C</h1>
+            <h2 class="city">New York</h2>
+            <div class="details">
+                <div class="col">
+                    <img src="images/humidity.png">
+                    <div>
+                        <p class="humidity">50%</p>
+                        <p>Humidity</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <img src="images/wind.png">
+                    <div>
+                        <p class="wind">15 kn/h</p>
+                        <p>Wind Speed</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modl" style="padding-left: 50px; margin-top: 20px;">
+                <model-viewer 
+                    src="https://cdn.glitch.global/30ecf31c-8368-4d9d-a992-4edc2e215e8a/chair.glb?v=1682149012569"
+                    ios-src="https://cdn.glitch.com/36cb8393-65c6-408d-a538-055ada20431b/Astronaut.usdz?v=1569545377878"
+                    poster="https://cdn.glitch.global/30ecf31c-8368-4d9d-a992-4edc2e215e8a/chair.png?v=1682148984210"
+                    alt="A 3D model of an astronaut"
+                    shadow-intensity="1"
+                    camera-controls
+                    auto-rotate ar>
+                </model-viewer>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="module"
       src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
   </script>
-  <a href="directview.html">GO</a>
+    <script>
+        const apiKey="44cb7bd3b32fe9cbd33059d13203f635";
+        const apiUrl="https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+
+        const searchBox = document.querySelector(".search input");
+        const searchBtn = document.querySelector(".search button");
+        const weatherIcon = document.querySelector(".weather-icon");
+
+         async function checkWeather(city){
+            const response=await fetch(apiUrl + city + `&appid=${apiKey}`);
+            if(response.status==404){
+                document.querySelector(".error").style.display="block";
+                document.querySelector(".weather").style.display="none";
+            }
+            else{
+                var data=await response.json();
+                console.log(data);
+
+                document.querySelector(".city").innerHTML=data.name;
+                document.querySelector(".temp").innerHTML=Math.round(data.main.temp) + "° C";
+                document.querySelector(".wind").innerHTML=data.wind.speed + " km/h";
+                document.querySelector(".humidity").innerHTML=data.main.humidity + "%";
+
+                if(data.weather[0].main=="Clouds"){
+                    weatherIcon.src="images/clouds.png";
+                }
+                else if(data.weather[0].main=="Clear"){
+                    weatherIcon.src="images/clear.png";
+                }
+                else if(data.weather[0].main=="Rain"){
+                    weatherIcon.src="images/rain.png";
+                }
+                else if(data.weather[0].main=="Drizzle"){
+                    weatherIcon.src="images/drizzle.png";
+                }
+                else if(data.weather[0].main=="Mist"){
+                    weatherIcon.src="images/mist.png";
+                }
+                document.querySelector(".weather").style.display="block";
+                document.querySelector(".error").style.display="none";
+                }
+         }
+
+         searchBtn.addEventListener("click", ()=>{
+            checkWeather(searchBox.value);
+         })
+        
+    </script>
+    
 </body>
 </html>
