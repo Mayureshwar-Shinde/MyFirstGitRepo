@@ -71,18 +71,19 @@
 
 
     .weather-icon{
-        border: solid red 2px;
+        /* border: solid red 2px; */
         width: 50%;
         margin-top: 10%;
     }
     .weather h1{
-        border: solid red 2px;
-        font-size: 48px;
+        /* border: solid red 2px; */
+        margin-top: -10px;
+        font-size: 88px;
         font-weight: 500;
     }
     .weather h2{
         /* border: red solid 2px; */
-        font-size: 75px;
+        font-size: 65px;
         font-weight: 400;
         margin-top: -10px;
     }
@@ -92,31 +93,44 @@
         align-items: center;
         justify-content: space-between;
         padding: 0 50px;
-        margin-top: 50px;
+        margin-top: 125px;
     
     }
     
     .col1{
-        display: inline-block;
+        /* display: inline-block; */
         /* border: solid red 2px; */
+        font-size: 34px;
         display: flex;
         align-items: center;
         /* text-align: left; */
     }
     .col2{
         /* border: solid red 2px; */
+        font-size: 34px;
         display: flex;
         align-items: center;
         /* text-align: left; */
     }
-    .col img{
-        width: 40px;
-        margin-right: 10px;
+    .col1 img, .col2 img{
+        /* border: solid red 2px; */
+        height: 125px;
+        width: 125px;
+        margin-right: 15px;
     }
+    /* .col2 img
+    {
+        border: solid red 2px;
+        height: 90px;
+        width: 90px;
+        margin-right: 15px;
+    } */
     
     .humidity, .wind{
-        font-size: 28px;
-        margin-top: -6px;
+        /* border: solid red 2px; */
+        font-size: 74px;
+        /* margin-top: -6px; */
+        margin: 10px;
     }
     
     .weather{
@@ -130,6 +144,18 @@
         margin-top: 10px;
         display: none;
     }
+
+    .outermodl{
+        margin-top: 100px;
+        align-items: center;
+        /* border: solid red 2px; */
+        display: flex;
+        justify-content: center;
+    }
+    .modl{
+        /* border: solid red 2px; */
+    }
+    
     </style>
     
 
@@ -166,16 +192,18 @@
                 </div>
             </div>
 
-            <div class="modl" style="padding-left: 50px; margin-top: 20px;">
-                <model-viewer 
-                    src="https://cdn.glitch.global/30ecf31c-8368-4d9d-a992-4edc2e215e8a/chair.glb?v=1682149012569"
-                    ios-src="https://cdn.glitch.com/36cb8393-65c6-408d-a538-055ada20431b/Astronaut.usdz?v=1569545377878"
-                    poster="https://cdn.glitch.global/30ecf31c-8368-4d9d-a992-4edc2e215e8a/chair.png?v=1682148984210"
-                    alt="A 3D model of an astronaut"
-                    shadow-intensity="1"
-                    camera-controls
-                    auto-rotate ar>
-                </model-viewer>
+            <div class="outermodl">
+                <div class="modl" style="padding-left: 50px; margin-top: 20px;">
+                    <model-viewer 
+                        src="https://cdn.glitch.global/30ecf31c-8368-4d9d-a992-4edc2e215e8a/chair.glb?v=1682149012569"
+                        ios-src="https://cdn.glitch.com/36cb8393-65c6-408d-a538-055ada20431b/Astronaut.usdz?v=1569545377878"
+                        poster="https://cdn.glitch.global/30ecf31c-8368-4d9d-a992-4edc2e215e8a/chair.png?v=1682148984210"
+                        alt="A 3D model of an astronaut"
+                        shadow-intensity="1"
+                        camera-controls
+                        auto-rotate ar>
+                    </model-viewer>
+                </div>
             </div>
         </div>
     </div>
