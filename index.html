@@ -1,0 +1,66 @@
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>AR Toy Car</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@0b5vr/arf"></script>
+    <style>
+      #arjsDiv {
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: black;
+      }
+      #car {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+  </head>
+  <body>
+    <button onclick="showCar()">Show Car</button>
+    <div id="arjsDiv">
+      <a-scene embedded arjs="sourceType: webcam;">
+        <a-marker preset="hiro">
+          <a-entity id="car" gltf-model="https://cdn.glitch.com/9ac1ce54-b14e-42b2-a0a2-69e3f3fda019%2Ftoy_car.gltf" scale="0.1 0.1 0.1"></a-entity>
+        </a-marker>
+        <a-entity camera></a-entity>
+      </a-scene>
+    </div>
+    <script>
+      function showCar() {
+        document.getElementById("arjsDiv").style.display = "block";
+      }
+    </script>
+  </body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.js"></script>
+  </head>
+  <body>
+    <a-scene embedded arjs>
+      <a-marker preset="hiro">
+        <a-entity gltf-model="path/toy_car.glb"></a-entity>
+      </a-marker>
+      <a-entity camera></a-entity>
+    </a-scene>
+
+    <script>
+      document.querySelector('a-marker').addEventListener('markerFound', function () {
+        const car = document.querySelector('a-marker > a-entity');
+        car.setAttribute('position', '0 0 0');
+      });
+    </script>
+  </body>
+</html>
