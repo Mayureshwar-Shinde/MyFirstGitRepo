@@ -212,6 +212,10 @@
                         shadow-intensity="1"
                         camera-controls
                         auto-rotate ar>
+                        <div slot="hotspot-1" style="position:absolute;top:50px;left:50px;background-color:#fff;padding:10px;border-radius:5px;">
+                            <h2>Model Label</h2>
+                            <p>This is a label for the model.</p>
+                          </div>
                     </model-viewer>
                 </div>
             </div>
@@ -236,6 +240,7 @@
         const cloudModel="https://cdn.glitch.global/30ecf31c-8368-4d9d-a992-4edc2e215e8a/cloud_earth.glb?v=1682242909459";
         const snowModel="https://cdn.glitch.global/30ecf31c-8368-4d9d-a992-4edc2e215e8a/snow_earth.glb?v=1682242989278";
         const mistModel="https://cdn.glitch.global/30ecf31c-8368-4d9d-a992-4edc2e215e8a/mist_earth.glb?v=1682243078214";
+    
 
         const searchBox = document.querySelector(".search input");
         const searchBtn = document.querySelector(".search button");
